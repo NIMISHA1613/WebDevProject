@@ -1,0 +1,46 @@
+<!--Author: Nimisha Gosain -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <title>Dashboard Page</title>
+  </head>
+  <body>
+    <!--Added partials for logo, nav-->
+    <%-include('../common/logo');%> <%-include('../common/navigation');%>
+    <main>
+      <h1>Dashboard</h1>
+
+      <table>
+        <tr>
+          <th>Request ID</th>
+          <th>Name</th>
+          <th>Email ID/ Phone</th>
+          <th>Description</th>
+          <th>View</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+        <% for(var deliveryRequest of deliveryRequests) { %>
+        <tr>
+          <td><%= deliveryRequest._id %></td>
+          <td><%= deliveryRequest.customerName %></td>
+          <td>
+            <%= `${deliveryRequest.phone ? deliveryRequest.phone :
+            deliveryRequest.email}` %>
+          </td>
+          <td><%- deliveryRequest.description%></td>
+          <th><a href="/view/<%= deliveryRequest._id %>">View</a></th>
+          <th><a href="/edit/<%= deliveryRequest._id %>">Edit</a></th>
+          <th><a href="/delete/<%= deliveryRequest._id %>">Delete</a></th>
+        </tr>
+        <% } %>
+      </table>
+    </main>
+    <%-include('../common/footer')%>
+  </body>
+</html>

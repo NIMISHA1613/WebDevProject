@@ -1,0 +1,40 @@
+<!--Author: Nimisha Gosain -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Page</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  </head>
+  <body>
+    <!-- prettier-ignore -->
+    <%-include('common/logo'); %>
+    
+    <%-include('common/navigation'); %>
+    <main>
+      <h1>Login</h1>
+
+      <form action="/authenticate" method="post" class="login_form">
+        <div class="form_item">
+          <label>User Name</label>
+          <input type="text" name="username" id="username" />
+        </div>
+        <div class="form_item">
+          <label>Password</label>
+          <input type="password" name="password" id="password" />
+        </div>
+        <div style="margin: auto">
+          <input type="submit" value="Login!" />
+        </div>
+
+        <%if(typeof(errors) != 'undefined') { %>
+        <div><p class="form_errors">Username or password is incorrect.</p></div>
+        <% } %>
+      </form>
+    </main>
+    <%-include('common/footer')%>
+  </body>
+</html>

@@ -1,0 +1,104 @@
+<!-- prettier-ignore -->
+<!--Below variables are declared so that their respective values entered by the customer could be 
+  extracted in the form display in required mode-->
+<% var customerName = typeof(customerName)!= "undefined" ? customerName : '';
+var email = typeof(email)!= "undefined" ? email : ''; var phone =
+typeof(phone)!= "undefined" ? phone : ''; var pathName = typeof(pathName)!=
+"undefined" ? pathName : ''; var description = typeof(description)!= "undefined"
+? description : ''; var error = typeof(error)!= "undefined" ? error : ''; var
+photoName = typeof(photoName)!= "undefined" ? photoName : ''; var photoPath =
+typeof(photoPath)!= "undefined" ? photoPath : ''; var formAction = mode ===
+"edit" ? "/request_form/update" : "/request_form/submit"; %>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="/js/tinymce/tinymce.min.js"></script>
+<script>
+  tinymce.init({
+    selector: "#description",
+  });
+</script>
+
+<!--mode is defined to use the same code w.r.t the three modes : new, edit, view-->
+<h2>
+  <% if(mode === 'new'){ %> New Request <% } else if (mode === 'view'){ %> View
+  Request <%} else { %> Edit Request <% } %>
+</h2>
+
+<!-- prettier-ignore -->
+<form
+  name="requestForm"
+  id="requestForm"
+  method="POST"
+  action= <%= formAction %> 
+  onsubmit=""
+  enctype="multipart/form-data"
+>
+  <%if(mode != "new"){%> 
+    <div class="form_item">
+      <label>Delivery Request Id</label>
+      <!-- prettier-ignore -->
+      <input type="text" id="deliveryId" name="deliveryId"
+      value=<%=deliveryRequestID%>
+      disabled>
+      <input type="text" id="deliveryRequestID" name="deliveryRequestID"
+      value=<%=deliveryRequestID%>
+      hidden>
+    </div>
+  <%}%>
+  <div class="form_item">
+    <label>Name</label>
+    <!-- prettier-ignore -->
+    <input type="text" id="customerName" name="customerName" placeholder="Name"
+    value=<%=customerName%>
+    <%if(mode === "view"){%> disabled <%}%>>
+  </div>
+  <div class="form_item">
+    <label>Email</label>
+
+    <!-- prettier-ignore -->
+    <input type="text" id="email" name="email"
+    <%if(mode === "view"){%> disabled <%}%> 
+    value=<%=email%> >
+  </div>
+  <div class="form_item">
+    <label>Phone</label>
+
+    <!-- prettier-ignore -->
+    <input type="text" id="phone" name="phone"
+    <%if(mode === "view"){%> disabled <%}%> 
+    value='<%=phone%>' >
+  </div>
+  <div class="form_item">
+   
+    <%if(mode != "view"){%>
+    <label for="photo"> Photo </label>
+    <input type="file" id="photo" name="photo" />
+    
+    <!-- prettier-ignore -->
+    <input type="text" id="photoPath" name="photoPath" hidden value=<%=photoPath%> >
+    <input type="text" id="photoName" name="photoName" hidden value=<%=photoName%> >
+
+    <% } %>
+    <!-- prettier-ignore -->
+    <img src=<%=photoPath%> > 
+  </div>
+  <div class="form_item">
+    <label for="description">Description</label>
+    <!-- prettier-ignore -->
+    <% if(mode === "view") {%>
+    <p class="view_description"><%- description %> 
+      </p> <% } else {%>
+    <textarea id="description" name="description"><%-description%></textarea
+    > <%} %>
+  </div>
+  <p class="form_errors">
+    <% if (typeof(errors)!= 'undefined'){ for(var error of errors){ %> <%=
+    error.msg %> <br />
+    <% } } %>
+  </p>
+  <%if(mode != "view"){%>
+  <div class="form_item_button">
+    <input type="submit" name="Submit" value="Submit" />
+  </div>
+  <%}%>
+</form>

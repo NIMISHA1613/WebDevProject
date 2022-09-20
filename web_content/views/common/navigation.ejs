@@ -1,0 +1,14 @@
+<nav>
+  <div>
+    <ul class="grid grid2">
+      <% if(typeof(session.loggedIn) == "undefined" || !session.loggedIn) {%>
+      <li><a href="/request_form">Add New</a></li>
+      <li><a href="/login">Login</a></li>
+      <%} else {%>
+      <li><a href="/dashboard">Dashboard</a></li>
+      <li><a href="/request_form">Add New</a></li>
+      <li><a href="/logout">Logout</a></li>
+      <%}%>
+    </ul>
+  </div>
+</nav>
